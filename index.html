@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SignConnect — Gesture Communication</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">✳</div><div><strong>SignConnect</strong><small>COMMUNICATION FOR ALL</small></div></div>
+      <div class="nav-label">WORKSPACE</div>
+      <a class="nav active" href="#studio"><span>▣</span> Live Studio</a>
+      <a class="nav" href="#guide"><span>⌘</span> Gesture Guide</a>
+      <div class="side-note"><div class="pulse"></div><div><strong>On-device vision</strong><p>Hand landmarks are processed in your browser.</p></div></div>
+      <div class="sidebar-bottom"><div class="avatar">SC</div><div><strong>SignConnect Demo</strong><small>Hackathon prototype</small></div></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div><div class="eyebrow">ACCESSIBILITY LAB / 01</div><h1>Gesture Communication Assistant</h1><p class="subtitle">Turn selected hand gestures into readable messages.</p></div>
+        <div class="top-status"><span class="status-dot"></span><span id="systemStatus">System ready</span></div>
+      </header>
+
+      <section class="stats">
+        <article class="stat-card"><div class="stat-icon violet">⌁</div><div><span>GESTURE SET</span><strong>5 gestures</strong><small>Prototype vocabulary</small></div></article>
+        <article class="stat-card"><div class="stat-icon mint">◉</div><div><span>CAMERA STATUS</span><strong id="cameraStat">Not started</strong><small id="cameraSub">Permission required</small></div></article>
+        <article class="stat-card"><div class="stat-icon amber">↗</div><div><span>DETECTIONS</span><strong id="detectionCount">0</strong><small>Session detections</small></div></article>
+      </section>
+
+      <section class="studio-grid" id="studio">
+        <article class="panel camera-panel">
+          <div class="panel-head"><div><span class="section-kicker">LIVE INPUT</span><h2>Gesture camera</h2></div><span class="live-pill"><span></span> LIVE VIEW</span></div>
+          <div class="camera-stage" id="cameraStage">
+            <video id="inputVideo" autoplay playsinline muted></video>
+            <canvas id="outputCanvas"></canvas>
+            <div class="camera-placeholder" id="cameraPlaceholder"><div class="camera-symbol">⌕</div><strong>Your camera preview appears here</strong><p>Allow camera access to begin hand tracking.</p></div>
+            <div class="camera-overlay"><span id="trackingBadge">● WAITING FOR CAMERA</span><span>MediaPipe Hands</span></div>
+          </div>
+          <div class="camera-controls"><button class="btn btn-primary" id="startBtn">▶ Start camera</button><button class="btn btn-secondary" id="stopBtn" disabled>■ Stop</button><div class="control-hint">Use good lighting and keep one hand in frame.</div></div>
+          <p class="privacy-note">🔒 Camera frames are processed in your browser and are not uploaded to this app.</p>
+        </article>
+
+        <article class="panel result-panel">
+          <div class="panel-head"><div><span class="section-kicker">RECOGNITION</span><h2>Detected meaning</h2></div><div class="confidence" id="confidence">—</div></div>
+          <div class="result-display"><div class="result-symbol" id="resultSymbol">✳</div><div class="result-label">CURRENT GESTURE</div><h3 id="gestureName">Waiting for input</h3><p id="gestureMeaning">Start the camera and show one of the supported hand shapes.</p></div>
+          <div class="sentence-box"><div class="sentence-head"><span>YOUR MESSAGE</span><button id="clearSentence" class="text-button">Clear</button></div><p id="sentenceText">Your recognized gestures will appear here…</p><div class="sentence-actions"><button class="btn btn-secondary" id="speakBtn">🔊 Speak message</button><button class="btn btn-secondary" id="copyBtn">▣ Copy</button></div></div>
+          <div class="feedback" id="feedback" aria-live="polite">Ready when you are.</div>
+        </article>
+      </section>
+
+      <section class="panel guide-panel" id="guide">
+        <div class="panel-head"><div><span class="section-kicker">QUICK REFERENCE</span><h2>Supported gestures</h2></div><span class="guide-caption">Hand-shape demo · not full sign-language translation</span></div>
+        <div class="gesture-grid">
+          <div class="gesture-card"><div class="gesture-emoji">✋</div><div><strong>Open palm</strong><p>Hello</p></div><span class="gesture-tag">HELLO</span></div>
+          <div class="gesture-card"><div class="gesture-emoji">✊</div><div><strong>Closed fist</strong><p>Thank you</p></div><span class="gesture-tag">THANKS</span></div>
+          <div class="gesture-card"><div class="gesture-emoji">☝️</div><div><strong>Index finger up</strong><p>One / attention</p></div><span class="gesture-tag">ONE</span></div>
+          <div class="gesture-card"><div class="gesture-emoji">✌️</div><div><strong>Two fingers up</strong><p>Peace</p></div><span class="gesture-tag">PEACE</span></div>
+          <div class="gesture-card"><div class="gesture-emoji">👍</div><div><strong>Thumbs up</strong><p>Yes / good</p></div><span class="gesture-tag">YES</span></div>
+        </div>
+      </section>
+      <footer>SignConnect · Built for accessible communication <span>Prototype v1.0</span></footer>
+    </main>
+  </div>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
